@@ -1,14 +1,12 @@
-# Sulu Minimal Edition
-# Docker Setup
+# Sulu CMS with Docker Setup
 
 ## Installation
 __Linux:__
+```
+docker-compose up -d
+docker-compose exec php-fpm bin/adminconsole sulu:build dev
+docker-compose exec php-fpm chmod -R 777 /var/www/app
+docker-compose down
+```
 
-```
-rm -rf var/cache/*
-rm -rf var/logs/*
-rm -rf var/sessions/*
-HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
-sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var/cache var/logs var/uploads var/uploads/* web/uploads web/uploads/* var/indexes var/sessions
-sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var/cache var/logs var/uploads var/uploads/* web/uploads web/uploads/* var/indexes var/sessions
-```
+#### Enjoy
